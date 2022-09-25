@@ -1,36 +1,38 @@
+
 package com.example.application.views.list;
 
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.html.Image;
-import com.vaadin.flow.component.html.Paragraph;
-import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.router.PageTitle;
+import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.theme.lumo.LumoUtility.Margin.Horizontal;
+import com.vaadin.flow.router.PageTitle;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
-import aj.org.objectweb.asm.Label;
+import javax.annotation.security.PermitAll;
 
-@PageTitle("list")
+
+@PageTitle("Contacts | Vaadin CRM")
 @Route(value = "")
+
 public class ListView extends VerticalLayout {
+    Grid<Contact> grid = new Grid<>(Contact.class);
+    TextField filterText = new TextField();
 
     public ListView() {
-        add(new H2("Initial text"));
 
-        Button button = new Button("Click me");
-        TextField name = new TextField("name");
+        addClassName("list-view");
+        setSizeFull();
 
-        HorizontalLayout h1 = new HorizontalLayout(name, button);
-        h1.setDefaultVerticalComponentAlignment(Alignment.BASELINE);
+        configureGrid();
+    }
 
-        button.addClickListener(click-> Notification.show("Hello, " + name.getValue()));
-
-        add(h1);
-
+    private void configureGrid() {
+        grid.addClassName("contact-grid");
     }
 
 }
